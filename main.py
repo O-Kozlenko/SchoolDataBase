@@ -1,7 +1,9 @@
 import csv
 from csv import DictWriter
-with open("config.txt", "r") as pepe:
-    min_score = int(pepe.read())
+from os import write
+
+with open("config.txt", "r") as file:
+    min_score = int(file.read())
 
 with open("students.csv", "r", encoding="utf-8") as file:
     data = list(csv.DictReader(file, delimiter=','))
@@ -11,4 +13,8 @@ for student in data:
 
 for i in data:
     if i["score"] < min_score:
-        print(i)
+        with open("retest.csv", "w", encoding="utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames=["id","name","surname","score"])
+            writer.writeheader()
+            for student in data:
+                writer.writerow(student)
