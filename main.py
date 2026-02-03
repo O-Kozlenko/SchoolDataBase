@@ -8,4 +8,7 @@ with open("students.csv", "r", encoding="utf-8") as file:
 
 for student in data:
     student["score"] = int(student["score"])
-print(data)
+
+for i in data:
+    if i["score"] < min_score:
+        print(i)
